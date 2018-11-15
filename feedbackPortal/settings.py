@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'feedback',
+
 ]
 
 MIDDLEWARE = [
@@ -70,6 +72,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'feedbackPortal.wsgi.application'
+
+
+AUTH_USER_MODEL = 'feedback.User'
+
 
 
 # Database
