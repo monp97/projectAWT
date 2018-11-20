@@ -20,7 +20,7 @@ class User(AbstractUser):
 	contact = models.CharField(blank=True, null=True, max_length=15, unique=True)
 	email = models.EmailField(unique=True, max_length=255, verbose_name="Email Address")
 	course = models.ForeignKey('Course', related_name='students', blank=True, null=True, on_delete=models.SET_NULL)
-	startYear = models.IntegerField()  # To identify the batch to which the student belongs for eg. "2017"-2020 for a 3 year course
+	startYear = models.IntegerField(default=2018)  # To identify the batch to which the student belongs for eg. "2017"-2020 for a 3 year course
 
 
 class Course(models.Model):
@@ -43,15 +43,14 @@ class Paper(models.Model):
 # Redundancy can't be removed since course pattern may change in future and past course pattern should be intact.
 
 class PaperOffering(models.Model):
-	semesterChoices = (
-		('odd', 'Odd'),
-		('even', 'Even')
-	)
 	course = models.ForeignKey('Course', related_name='offerings', on_delete=models.CASCADE)
 	paper = models.ForeignKey('Paper', related_name='offerings', on_delete=models.CASCADE)
-	semester = models.IntegerField()
+	semester = models.IntegerField() # Semester 1,2,...8
 	year = models.IntegerField()  # To identify the batch eg. "2018"
 	faculty = models.ForeignKey('User', related_name='teachings', blank=True, null=True, on_delete=models.SET_NULL)  # Who taught this paper under the given course
+
+	def has_feedback(self, user):
+		return Feedback.objects.filter(owner=user, offering=self).exists()
 
 
 class FeedbackQuestion(models.Model):

@@ -10,17 +10,19 @@ Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
-    1. Import the include() function: from django.urls import include, path
+    1. Import the () fincludeunction: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.contrib.auth.views import LoginView,LogoutView
-from . import views
+from django.contrib.auth.views import LoginView, LogoutView
+from django.conf.urls import url, include
+
+import feedback.urls
 
 urlpatterns = [
-    url(r'^login/$',LoginView.as_view(), {'template_name': 'login.html'},name='login'),
+    url(r'^login/$', LoginView.as_view(), {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$',LogoutView.as_view(), {'next_page': '/login/'}),
-    url(r'^admin/', admin.site.urls),
-    url('',views.index)
+    url(r'^', include(feedback.urls)),
+    url(r'^admin/', admin.site.urls)
 ]
