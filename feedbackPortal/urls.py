@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import LoginView,LogoutView
+from . import views
 
 urlpatterns = [
     url(r'^login/$',LoginView.as_view(), {'template_name': 'login.html'},name='login'),
     url(r'^logout/$',LogoutView.as_view(), {'next_page': '/login/'}),
-    url(r'^admin/', admin.site.urls)
+    url(r'^admin/', admin.site.urls),
+    url('',views.index)
 ]
