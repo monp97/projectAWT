@@ -1,28 +1,80 @@
 {% extends 'feedback/base.html' %}
 {% block content %}
-<h4>Submitting Semester End Feedback for </h4>
-<h3 style="color:green"><b>{{ paper_offering.paper.title }}</b></h3>
-<h4>taken by <b>{{ paper_offering.faculty.first_name}}</b></h4>
-<br/>
-<b>Please answer the following by selecting the appropriate rating from the select menu adjacent to each question.</b>
-<br/><br/>
-<div class="alert alert-info">
-<h4>Rating Scale</h4>
-<ul>
-    <li>1 - Poor</li>
-    <li>2 - Average</li>
-    <li>3 - Good</li>
-    <li>4 - Very Good</li>
-    <li>5 - Excellent</li>
-</ul>
-</div>
+    <h4>Submitting Semester End Feedback for </h4>
+    <h3 style="color:green"><b>{{ paper_offering.paper.title }}</b></h3>
+    <h4>taken by <b>{{ paper_offering.faculty.first_name}}</b></h4>
+    <br/>
+    <b>Please answer the following by selecting the appropriate rating from the select menu adjacent to each question.</b>
+    <br/><br/>
+    <div class="alert alert-info">
+    <h4>* All questions are mandatory</h4>
+    <h4>* Rating Scale</h4>
+    <ul>
+        <li>1 - Poor</li>
+        <li>2 - Average</li>
+        <li>3 - Good</li>
+        <li>4 - Very Good</li>
+        <li>5 - Excellent</li>
+    </ul>
+    </div>
 
 
-</ul>
-{% for question in questions %}
-    <br>
-    {% include 'partials/question.html' with question=question count=forloop.counter %}
-{% endfor %}
-        <button class="btn btn-info col-md-2" style="margin: 5px;">Submit</button>
-        <a href="/" class="btn btn-danger col-md-2" style="margin: 5px;">Cancel</a>
+    </ul>
+    {% for question in questions %}
+        <br>
+        {% include 'partials/question.html' with question=question count=forloop.counter %}
+    {% endfor %}
+    <div class="form-group">
+        <label>Please mention any further remarks on course or faculty</label>
+        <textarea class="remarks form-control"></textarea>
+    </div>
+    <p style="color:green" class="submitAllMsg"><b>Answer all questions to be able to submit the feedback</b></p>
+    <button class="btn btn-info col-md-2 submitButton" style="margin: 5px;" onclick="submit()" disabled>Submit</button>
+    <a href="/" class="btn btn-danger col-md-2" style="margin: 5px;">Cancel</a>
+
+    <script>
+        function submit(){
+            var feedback = {};
+            feedback.paper_offering = {{ paper_offering.id }}
+            feedback.remarks = $(".remarks").val();
+            feedback.questions_responses = [];
+
+            $(".question").each(function(){
+                var question = {};
+                question.question = $(this).find(".questionId").val();
+                question.rating = $(this).find(".rating").val();
+                feedback.questions_responses.push(question);
+            });
+
+            alert(JSON.stringify(feedback));
+
+            $.ajax({
+                url: '/feedback',
+                type: 'post',
+                cache : false,
+                contentType : 'application/json',
+                data: JSON.stringify(feedback),
+                success: function(data){
+                    alert("Feedback successfully recorded!");
+                    location.replace("/");
+                }
+            });
+        }
+
+        $("select").change(function () {
+            var res = true;
+            $("select").each(function(){
+               if($(this).val() === "") {
+                   res = false;
+               }
+            }) ;
+            if(res) {
+                $(".submitButton").removeAttr("disabled");
+                $(".submitAllMsg").hide();
+            } else {
+                $(".submitButton").attr("disabled", "disabled");
+                $(".submitAllMsg").show();
+            }
+        });
+    </script>
 {% endblock %}
