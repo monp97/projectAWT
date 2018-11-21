@@ -34,11 +34,33 @@
        width:100px;
 
     }
+
+   footer{
+     background-color:#1C2331;
+   }
+
+   footer .container{
+
+      position:relative;
+      padding:50px;
+
+   }
+
+
+   i:hover{ -webkit-transform: scale(1.2); }
+
+
+   .modal .container{
+     padding:30px;
+   }
+
+
+
+
   </style>
   <script>
   // Get the modal
   var modal = document.getElementById('id01');
-
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
      if (event.target == modal) {
@@ -50,10 +72,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'base_css.css' %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).ready(function(){
+
+        $(".btn-danger").click(function(){
+        $(".alert-warning").hide();
+       });
+
+    });
+
+  </script>
 </head>
 <body>
+   {% if form.errors %}
+      <div class="alert alert-warning">
+        <div class="row">
+          <div class="col-sm-11">
+            <strong>Oops!</strong>Username or Password is incorrect, Please try again.
+          </div>
+          <div class="col-sm-1">
+             <button class="btn btn-danger">close</button>
+          </div>
+        </div>
+    </div>
+  {% endif %}
+
   <div class="box">
   <div class="jumbotron"><center>
     <h1>Feedback Portal</h1>
@@ -61,38 +108,77 @@
   </div>
   <div class="login_option">
         <center>  <button class="login" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button></center>
-
       <div id="id01" class="modal">
-
        <form class="modal-content animate" action="/login/" method="post">
            {%  csrf_token %}
+
          <div class="imgcontainer">
-           <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-           <!-- <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
-         </div>
-
-
-
+              <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src='{% static 'avatar.png' %}' alt="Avatar" class="avatar" style="width:100px;">
+            </div>
          <div class="container">
+
            <label for="uname"><b>Username</b></label>
-           <input type="text" placeholder="Enter Username" name="username" required>
+           {{ form.username }}
 
            <label for="psw"><b>Password</b></label>
-           <input type="password" placeholder="Enter Password" name="password" required>
+           {{ form.password }}
 
-           <button type="submit">Login</button>
+           <button class="btn btn-primary" type="submit" >Login</button>
            <label>
              <input type="checkbox" checked="checked" name="remember"> Remember me
            </label>
+
+           <button class="btn btn-info" type="button"  onclick="document.getElementById('id01').style.display='none'">Cancel</button>
+           <span class="psw">Forgot <a href="#">password?</a></span>
+
          </div>
 
-         <div class="container" style="background-color:#f1f1f1">
-           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-           <span class="psw">Forgot <a href="#">password?</a></span>
-         </div>
        </form>
       </div>
   </div>
 </div>
+<footer class="page-footer font-small pt-4">
+    <!-- Footer Elements -->
+    <div class="container">
+
+      <!-- Social buttons -->
+      <ul class="list-unstyled list-inline text-center">
+        <li class="list-inline-item">
+          <a class="btn-floating btn-fb mx-1">
+            <i class="fa fa-facebook" style="font-size:38px;color:white;"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-tw mx-1">
+            <i class="fa fa-twitter" style="font-size:38px;color:white;"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-gplus mx-1">
+            <i class="fa fa-google-plus" style="font-size:38px;color:white;"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-li mx-1">
+            <i class="fa fa-linkedin" style="font-size:38px;color:white;"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-dribbble mx-1">
+            <i class="fa fa-dribbble" style="font-size:38px;color:white;"> </i>
+          </a>
+        </li>
+      </ul>
+      <!-- Social buttons -->
+    </div>
+    <!-- Footer Elements -->
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
 </body>
 </html>
