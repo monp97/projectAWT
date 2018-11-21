@@ -1,7 +1,11 @@
 {% extends 'faculty/base.html' %}
 
+{% block subheading %}
+    <p>View your statistics as per anonymous student feedback!</p>
+{% endblock %}
+
 {%  block content %}
-    <div class="alert alert-info">View your statistics as per anonymous student feedback! </div>
+
 
     <div class="well">Total {{ teachings.count }} classes taught.</div>
 
