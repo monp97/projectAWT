@@ -8,6 +8,7 @@
     <br/><br/>
     <div class="alert alert-info">
     <h4>* All questions are mandatory</h4>
+    <h4>* Feedback once submitted cannot be modified or re-subimtted.</h4>
     <h4>* Rating Scale</h4>
     <ul>
         <li>1 - Poor</li>
@@ -25,7 +26,7 @@
         {% include 'partials/question.html' with question=question count=forloop.counter %}
     {% endfor %}
     <div class="form-group">
-        <label>Please mention any further remarks on course or faculty</label>
+        <label>Please mention any further remarks on course or faculty (Optional)</label>
         <textarea class="remarks form-control"></textarea>
     </div>
     <p style="color:green" class="submitAllMsg"><b>Answer all questions to be able to submit the feedback</b></p>

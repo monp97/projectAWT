@@ -1,0 +1,43 @@
+{% extends 'faculty/base.html' %}
+
+{%  block content %}
+    <div class="alert alert-info">View your statistics as per anonymous student feedback! </div>
+
+    <div class="well">Total {{ teachings.count }} classes taught.</div>
+
+    <div class="well">
+        <h3>Papers Taught</h3>
+        <ul>
+            {% for paper in papers %}
+            <li>{{ paper.title }}</li>
+            {%  endfor %}
+        </ul>
+    </div>
+
+    <div class="well">
+        <h3>Question-wise Statistics</h3>
+
+            {% for statistic in statistics %}
+                <div class="alert alert-info">
+                    <h4>{{ forloop.counter }}. {{ statistic.questionText }}</h4>
+                <br/>
+                Average Score <h4><b>{{ statistic.averageRating }}</b></h4>
+                </div>
+            {%  endfor %}
+
+    </div>
+
+    <div class="well">
+        <h3>Paper-wise Statistics</h3>
+
+            {% for statistic in paperStatistics %}
+                <div class="alert alert-info">
+                    <h4>{{ forloop.counter }}. {{ statistic.paperTitle }}</h4>
+                <br/>
+                Average Score <h4><b>{{ statistic.averageRating }}</b></h4>
+                </div>
+            {%  endfor %}
+
+    </div>
+
+{% endblock %}
