@@ -17,6 +17,9 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.conf.urls import url, include
+from . import settings
+from django.conf.urls.static import static
+
 
 import feedback.urls
 
@@ -26,3 +29,7 @@ urlpatterns = [
     url(r'^', include(feedback.urls)),
     url(r'^admin/', admin.site.urls),
 ]
+
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

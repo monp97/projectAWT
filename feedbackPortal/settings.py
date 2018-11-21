@@ -26,6 +26,7 @@ SECRET_KEY = '_6e*)(_!=f&m7fnc^riz8z8b++1s8)6rk7=2r*r82(_++thjr('
 DEBUG = True
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = "/login"
 
 ALLOWED_HOSTS = []
 
@@ -124,5 +125,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'feedback/static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'assets'),
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
