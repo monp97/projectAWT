@@ -6,6 +6,7 @@ from django.db import models
 from django.db import models
 from django.utils import timezone
 from feedback import helpers
+import datetime
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
@@ -21,6 +22,17 @@ class User(AbstractUser):
 	email = models.EmailField(unique=True, max_length=255, verbose_name="Email Address")
 	course = models.ForeignKey('Course', related_name='students', blank=True, null=True, on_delete=models.SET_NULL)
 	startYear = models.IntegerField(default=2018)  # To identify the batch to which the student belongs for eg. "2017"-2020 for a 3 year course
+
+	def get_semester(self):
+		user = self
+		now = datetime.datetime.now()
+		curr_year = int(now.strftime("%Y"))
+		year_diff = curr_year - user.startYear
+		curr_month = int(now.strftime("%m"))
+		if 12 >= curr_month >= 7:
+			return 2 * year_diff + 1
+		else:
+			return 2 * year_diff + 2
 
 
 class Course(models.Model):

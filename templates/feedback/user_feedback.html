@@ -1,4 +1,28 @@
-This is the page where user will give the feedback for
-<b>{{ paper_offering.paper.title }}</b>
+{% extends 'feedback/base.html' %}
+{% block content %}
+<h4>Submitting Semester End Feedback for </h4>
+<h3 style="color:green"><b>{{ paper_offering.paper.title }}</b></h3>
+<h4>taken by <b>{{ paper_offering.faculty.first_name}}</b></h4>
 <br/>
-Rendered by <b>views.user_feedback()</b>
+<b>Please answer the following by selecting the appropriate rating from the select menu adjacent to each question.</b>
+<br/><br/>
+<div class="alert alert-info">
+<h4>Rating Scale</h4>
+<ul>
+    <li>1 - Poor</li>
+    <li>2 - Average</li>
+    <li>3 - Good</li>
+    <li>4 - Very Good</li>
+    <li>5 - Excellent</li>
+</ul>
+</div>
+
+
+</ul>
+{% for question in questions %}
+    <br>
+    {% include 'partials/question.html' with question=question count=forloop.counter %}
+{% endfor %}
+        <button class="btn btn-info col-md-2" style="margin: 5px;">Submit</button>
+        <a href="/" class="btn btn-danger col-md-2" style="margin: 5px;">Cancel</a>
+{% endblock %}
