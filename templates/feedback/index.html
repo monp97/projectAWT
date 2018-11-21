@@ -1,12 +1,40 @@
+{% extends 'feedback/base.html' %}
 {% load filters %}
-<h1>hello wrold</h1>
+{% load static %}
 Showing Paper Offerings for user as in Semester {{ semester }}
 <br/><br/>
+
+
+{% block content %}
+<div class=""row">
 {%  for paper_offering in paper_offerings %}
-    <a href="/feedback?offering_id={{ paper_offering.id }}"> {{ paper_offering.paper.title }} </a>
-    {% has_feedback paper_offering request.user as has_feedback_val %}
-    {% if has_feedback_val %}
-        <b>Feedback Submitted</b>
-    {% endif %}
+    <div class="col-sm-4">
+        <a id="anchor"   href="/feedback?offering_id={{ paper_offering.id }}">
+        <div id="flip-card" class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front" >
+                {% has_feedback paper_offering request.user as has_feedback_val %}
+                {% if has_feedback_val %}
+                     <img  class="tick" src="{% static 'tick-bold.png' %}" alt="Avatar" style="width:100px;height:100px;">
+                     <div class="row" style="padding:20px"><div class="label label-info">Response recorded</div></div>
+                {% else %}
+                    <img  class="wrong" src="{% static 'pencil.png' %}" alt="Avatar" style="width:100px;height:100px;">
+                    <div class="row" style="padding:20px"><div class="label label-success">Submit response</div></div>
+                {% endif %}
+
+            </div>
+            <div class="flip-card-back">
+                <div class="box">
+                     <h1>{{ paper_offering.paper.title }}</h1>
+                  <p>{{ paper_offering.faculty }}</p>
+                  <p>{{ paper_offering.paper.kind }}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+        </a>
     <br/>
+    </div>
 {% endfor %}
+        </div>
+{% endblock %}

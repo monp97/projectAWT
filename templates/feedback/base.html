@@ -1,5 +1,5 @@
 {%load static %}
-<html>
+<html xmlns:color="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,8 +9,22 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body class="container" onload="ajaxSetup()">
-        <h2><b>{{ request.user.first_name }}</b></h2>
-        <h3><b>{{ paper_offering.course.title }} {{ request.user.startYear }} Batch, Semester {{ request.user.get_semester }} </b></h3>
+            <div class="header">
+                 <div class="row" style="color:white;">
+                  <h1>{{ request.user.first_name }}</h1>
+                 </div>
+                <div class="row">
+                    <h3>{{ request.user.course.title }},{{ request.user.startYear }} Batch</h3>
+                <h3><b>Semester {{ request.user.get_semester }} </b></h3>
+                </div>
+                <div class="img_box">
+               <img src="{% static 'avatar_white_64px.png' %}" alt="Avatar" style="width:150px">
+                    </div>
+
+          </div>
+        <!--<h2><b>{{ request.user.first_name }}</b></h2>-->
+        <!--<h2>{{ request.user.course.title }}</h2>-->
+
         <hr>
         {% block content %}
         {% endblock %}

@@ -14,9 +14,11 @@
        background-size:cover;
       background-repeat: no-repeat;
      }
-     p , h1{
+      p , h1{
        color: white;
      }
+
+
 
     .login_option{
       position: relative;
@@ -111,7 +113,6 @@
       <div id="id01" class="modal">
        <form class="modal-content animate" action="/login/" method="post">
            {%  csrf_token %}
-
          <div class="imgcontainer">
               <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
             <img src='{% static 'avatar.png' %}' alt="Avatar" class="avatar" style="width:100px;">
@@ -119,21 +120,19 @@
          <div class="container">
 
            <label for="uname"><b>Username</b></label>
-           {{ form.username }}
+           <span style="color:black;">  {{ form.username }}</span>
+
 
            <label for="psw"><b>Password</b></label>
-           {{ form.password }}
+           <span style="color:black;">  {{ form.password }}</span>
 
            <button class="btn btn-primary" type="submit" >Login</button>
            <label>
              <input type="checkbox" checked="checked" name="remember"> Remember me
            </label>
-
            <button class="btn btn-info" type="button"  onclick="document.getElementById('id01').style.display='none'">Cancel</button>
            <span class="psw">Forgot <a href="#">password?</a></span>
-
          </div>
-
        </form>
       </div>
   </div>

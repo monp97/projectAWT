@@ -56,7 +56,6 @@ def user_feedback(request):
 				rating=question_response["rating"],
 				feedback=feedback
 			)
-
 		response = {
 			"status": "OK"
 		}
