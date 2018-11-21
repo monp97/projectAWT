@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from feedback import views
+from faculty import views
 
 
 urlpatterns = [
