@@ -19,8 +19,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.conf.urls import url, include
 from . import settings
 from django.conf.urls.static import static
-
-
 import feedback.urls, faculty.urls
 
 urlpatterns = [
