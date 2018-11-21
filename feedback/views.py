@@ -11,7 +11,7 @@ def get_semester(user):
 	return 1
 
 
-@login_required()
+@login_required
 def index(request):
 	user = request.user
 	course = user.course
@@ -22,7 +22,8 @@ def index(request):
 		'semester': semester,
 		'paper_offerings': paper_offerings,
 	}
-	return render('index.html', context)
+
+	return render(request,'index.html',context)
 
 
 @login_required()
@@ -59,8 +60,3 @@ def user_feedback(request):
 		}
 
 		return HttpResponse(json.dumps(response))
-
-
-
-
-
