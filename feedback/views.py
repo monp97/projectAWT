@@ -4,26 +4,38 @@ from django.contrib.auth.decorators import login_required
 import json
 
 from .models import *
+import datetime
 
 # Create your views here.
 
+
 def get_semester(user):
-	return 1
+	now = datetime.datetime.now()
+	curr_year = int(now.strftime("%Y"))
+	year_diff = curr_year - user.startYear
+	curr_month = int(now.strftime("%m"))
+	if 12 >= curr_month >= 7:
+		return 2*year_diff + 1
+	else:
+		return 2*year_diff + 2
 
 
 @login_required
 def index(request):
 	user = request.user
 	course = user.course
-	semester = get_semester(user)
-	paper_offerings = course.offerings.filter(year=user.startYear, semester=semester)
-	context = {
-		'course': course,
-		'semester': semester,
-		'paper_offerings': paper_offerings,
-	}
+	if user.course is not None:
+		semester = get_semester(user)
+		paper_offerings = course.offerings.filter(year=user.startYear, semester=semester)
+		print(paper_offerings.count())
+		context = {
+			'course': course,
+			'semester': semester,
+			'paper_offerings': paper_offerings,
+		}
 
-	return render(request,'index.html',context)
+		return render(request, 'feedback/index.html', context)
+	return HttpResponse("User " + user.username + " is not registered for any course!")
 
 
 @login_required()
@@ -37,8 +49,9 @@ def user_feedback(request):
 				'paper_offering': paper_offering,
 				'questions': questions,
 			}
+			return render(request, 'feedback/user_feedback.html', context)
 		except PaperOffering.DoesNotExist:
-			redirect("/")
+			return redirect("/")
 	else:
 		data = json.loads(request.body)
 		paper_offering = PaperOffering.objects.get(pk=data["paper_offering"])

@@ -27,6 +27,9 @@ class Course(models.Model):
 	title = models.CharField(max_length=200)  # MCA, BTECH CSE...
 	duration = models.IntegerField()  # in years
 
+	def __str__(self):
+		return self.title
+
 
 class Paper(models.Model):
 	kindChoices = (
@@ -35,6 +38,10 @@ class Paper(models.Model):
 	)
 	title = models.CharField(max_length=200)  # DS, algo, ...
 	kind = models.CharField(max_length=20, choices=kindChoices)
+
+	def __str__(self):
+		return self.title
+
 
 
 # Paper being offerred as a part of some course in a particular year (odd/even sem), taught by some faculty
@@ -51,6 +58,10 @@ class PaperOffering(models.Model):
 
 	def has_feedback(self, user):
 		return Feedback.objects.filter(owner=user, offering=self).exists()
+
+	def __str__(self):
+		return self.course.title + " " + str(self.year) + " => " + self.paper.title + " Semester " + str(self.semester)
+
 
 
 class FeedbackQuestion(models.Model):

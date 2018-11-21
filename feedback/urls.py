@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-	url(r'^feedback/$', views.index),
+	url(r'^feedback', views.user_feedback),
+	url(r'^$', views.index),
 ]

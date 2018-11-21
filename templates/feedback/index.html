@@ -1,1 +1,12 @@
+{% load filters %}
 <h1>hello wrold</h1>
+Showing Paper Offerings for user as in Semester {{ semester }}
+<br/><br/>
+{%  for paper_offering in paper_offerings %}
+    <a href="/feedback?offering_id={{ paper_offering.id }}"> {{ paper_offering.paper.title }} </a>
+    {% has_feedback paper_offering request.user as has_feedback_val %}
+    {% if has_feedback_val %}
+        <b>Feedback Submitted</b>
+    {% endif %}
+    <br/>
+{% endfor %}
