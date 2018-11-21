@@ -1,8 +1,10 @@
-<div class="well col-md-12">
+<div class="question well col-md-12">
     <h4 style="color:purple">{{ count }}. {{ question.questionText }}</h4>
+    <input type="hidden" value="{{ question.id }}" class="questionId">
     <div class="form-group col-md-2">
         <label>Select Your Choice</label>
-        <select class="form-control">
+        <select class="rating form-control">
+            <option value="">Not Rated</option>
             <option value="5">5</option>
             <option value="4">4</option>
             <option value="3">3</option>

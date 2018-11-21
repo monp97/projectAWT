@@ -21,11 +21,12 @@ from . import settings
 from django.conf.urls.static import static
 
 
-import feedback.urls
+import feedback.urls, faculty.urls
 
 urlpatterns = [
     url(r'^login/$', LoginView.as_view(), {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$',LogoutView.as_view(), {'next_page': '/login/'}),
+    url(r'^faculty/', include(faculty.urls)),
     url(r'^', include(feedback.urls)),
     url(r'^admin/', admin.site.urls),
 ]

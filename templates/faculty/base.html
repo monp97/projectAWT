@@ -9,8 +9,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body class="container" onload="ajaxSetup()">
-        <h2><b>{{ request.user.first_name }}</b></h2>
-        <h3><b>{{ paper_offering.course.title }} {{ request.user.startYear }} Batch, Semester {{ request.user.get_semester }} </b></h3>
+        <h2><b>Hi {{ request.user.first_name }}! </b></h2>
+
         <hr>
         {% block content %}
         {% endblock %}
