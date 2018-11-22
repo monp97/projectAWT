@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/feedbackPortal.iml" filepath="$PROJECT_DIR$/.idea/feedbackPortal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/projectAWT.iml" filepath="$PROJECT_DIR$/.idea/projectAWT.iml" />
     </modules>
   </component>
 </project>
