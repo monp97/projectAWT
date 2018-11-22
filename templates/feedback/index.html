@@ -8,26 +8,30 @@ Showing Paper Offerings for user as in Semester {{ semester }}
 {% block content %}
 <div class=""row">
 {%  for paper_offering in paper_offerings %}
+    {% has_feedback paper_offering request.user as has_feedback_val %}
     <div class="col-sm-4">
-        <a id="anchor"   href="/feedback?offering_id={{ paper_offering.id }}">
+        <a id="anchor"   href="
+            {% if not has_feedback_val %}
+                /feedback?offering_id={{ paper_offering.id }}
+            {% endif %}
+        ">
         <div id="flip-card" class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front" >
-                {% has_feedback paper_offering request.user as has_feedback_val %}
                 {% if has_feedback_val %}
                      <img  class="tick" src="{% static 'tick-bold.png' %}" alt="Avatar" style="width:100px;height:100px;">
-                     <div class="row" style="padding:20px"><div class="label label-info">Response recorded</div></div>
+                     <div class="row" style="padding:20px;font-size:1.5em"><div class="label label-info">Feedback Submitted</div></div>
                 {% else %}
                     <img  class="wrong" src="{% static 'pencil.png' %}" alt="Avatar" style="width:100px;height:100px;">
-                    <div class="row" style="padding:20px"><div class="label label-success">Submit response</div></div>
+                    <div class="row" style="padding:20px;font-size:1.5em"><div class="label label-success">Submit Feedback</div></div>
                 {% endif %}
 
             </div>
             <div class="flip-card-back">
                 <div class="box">
-                     <h1>{{ paper_offering.paper.title }}</h1>
-                  <p>{{ paper_offering.faculty }}</p>
-                  <p>{{ paper_offering.paper.kind }}</p>
+                     <h1><b>{{ paper_offering.paper.title }}</b></h1>
+                  <p>Taught by {{ paper_offering.faculty.first_name }}</p>
+                  <b><p style="text-transform: uppercase">{{ paper_offering.paper.kind }}</p></b>
                 </div>
             </div>
           </div>

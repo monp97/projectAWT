@@ -30,14 +30,20 @@ def index(request):
 	statistics = []
 
 	for question in FeedbackQuestion.objects.all():
-		avg = 0.0
-		for questionResponse in questionResponses.filter(question=question).all():
-			avg += questionResponse.rating
-		avg = avg / questionResponses.filter(question=question).count()
-		statistic = FeedbackStatistic()
-		statistic.questionText = question.questionText
-		statistic.averageRating = avg
-		statistics.append(statistic)
+
+		filtered_responses = questionResponses.filter(question=question)
+		response_count = filtered_responses.count()
+
+		if response_count is not 0:
+
+			for questionResponse in questionResponses.filter(question=question).all():
+				avg += questionResponse.rating
+
+			avg = avg / questionResponses.filter(question=question).count()
+			statistic = FeedbackStatistic()
+			statistic.questionText = question.questionText
+			statistic.averageRating = avg
+			statistics.append(statistic)
 
 	paperStatistics = []
 
