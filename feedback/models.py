@@ -21,6 +21,7 @@ class User(AbstractUser):
 	contact = models.CharField(blank=True, null=True, max_length=15, unique=True)
 	email = models.EmailField(unique=True, max_length=255, verbose_name="Email Address")
 	course = models.ForeignKey('Course', related_name='students', blank=True, null=True, on_delete=models.SET_NULL)
+	roll = models.IntegerField(blank=True, null=True)
 	startYear = models.IntegerField(default=2018)  # To identify the batch to which the student belongs for eg. "2017"-2020 for a 3 year course
 
 	def get_semester(self):
@@ -33,6 +34,13 @@ class User(AbstractUser):
 			return 2 * year_diff + 1
 		else:
 			return 2 * year_diff + 2
+
+	def submitted_all(self):
+		paper_offerings = PaperOffering.objects.filter(course=self.course, semester=self.get_semester(), year=self.startYear)
+		for offering in paper_offerings:
+			if not offering.has_feedback(self):
+				return False
+		return True
 
 
 class Course(models.Model):
@@ -97,5 +105,5 @@ class QuestionResponse(models.Model):
 class Feedback(models.Model):
 	owner = models.ForeignKey('User', related_name='feedbacks', on_delete=models.CASCADE)
 	offering = models.ForeignKey('PaperOffering', related_name='feedbacks', on_delete=models.CASCADE)
-	remarks = models.TextField()  # student remarks
+	remarks = models.TextField(blank=True, null=True)  # student remarks
 

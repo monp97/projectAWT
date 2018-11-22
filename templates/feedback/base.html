@@ -8,26 +8,54 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
-    <body class="container" onload="ajaxSetup()">
-            <div class="header">
-                 <div class="row" style="color:white;">
-                  <h1>{{ request.user.first_name }}</h1>
-                 </div>
-                <div class="row">
-                    <h3>{{ request.user.course.title }},{{ request.user.startYear }} Batch</h3>
-                <h3><b>Semester {{ request.user.get_semester }} </b></h3>
+    <body onload="ajaxSetup()">
+
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Academic Feedback</a>
                 </div>
-                <div class="img_box">
-               <img src="{% static 'avatar_white_64px.png' %}" alt="Avatar" style="width:150px">
+                <div id="navbar" class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="#contact"></a></li>
+                  </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="">Logged in as <b>{{ request.user.first_name }} {% if request.user.roll %}( {{ request.user.roll }} ) {% endif %}</b></a></li>
+                        <li><a class="btn btn-danger" style="color:white" href="/logout">Logout</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+              </div>
+            </nav>
+
+            <div class="container">
+
+                <div class="header" style="margin-top: 150px; background: url('{% static 'background.jpg' %}');">
+                     <div class="row" style="color:white;">
+                         <div class="" style="margin-top: -75px;">
+                            <img src="{% static 'avatar_white_64px.png' %}" alt="Avatar" style="width:150px">
+                         </div>
+                         <h1><b>{{ request.user.first_name }}</b></h1>
+                         <h3 style="color:white">{{ request.user.course.title }}, Batch of {{ request.user.startYear }}</h3>
+                         <h3 style="color:white"><b>Semester {{ request.user.get_semester }} </b></h3>
+
                     </div>
 
-          </div>
-        <!--<h2><b>{{ request.user.first_name }}</b></h2>-->
-        <!--<h2>{{ request.user.course.title }}</h2>-->
+                </div>
+                <!--<h2><b>{{ request.user.first_name }}</b></h2>-->
+                <!--<h2>{{ request.user.course.title }}</h2>-->
 
-        <hr>
-        {% block content %}
-        {% endblock %}
+                <hr>
+                {% block content %}
+                {% endblock %}
+
+            </div>
 
         <script>
             function ajaxSetup() {
