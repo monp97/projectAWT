@@ -36,10 +36,12 @@ def index(request):
 
 		if response_count is not 0:
 
+			avg = 0.0
+
 			for questionResponse in questionResponses.filter(question=question).all():
 				avg += questionResponse.rating
 
-			avg = avg / questionResponses.filter(question=question).count()
+			avg = avg / response_count
 			statistic = FeedbackStatistic()
 			statistic.questionText = question.questionText
 			statistic.averageRating = avg
@@ -49,14 +51,19 @@ def index(request):
 
 	for paper in Paper.objects.all():
 		if teachings.filter(paper=paper).exists():
-			avg = 0.0
-			for questionResponse in questionResponses.filter(feedback__offering__paper=paper).all():
-				avg += questionResponse.rating
-			avg = avg / questionResponses.filter(feedback__offering__paper=paper).count()
-			paperStatistic = PaperStatistic()
-			paperStatistic.paperTitle = paper.title
-			paperStatistic.averageRating = avg
-			paperStatistics.append(paperStatistic)
+
+			filtered_responses = questionResponses.filter(feedback__offering__paper=paper)
+			response_count = filtered_responses.count()
+
+			if response_count is not 0:
+				avg = 0.0
+				for questionResponse in filtered_responses.all():
+					avg += questionResponse.rating
+				avg = avg / response_count
+				paperStatistic = PaperStatistic()
+				paperStatistic.paperTitle = paper.title
+				paperStatistic.averageRating = avg
+				paperStatistics.append(paperStatistic)
 
 	context = {
 		'teachings': teachings,
