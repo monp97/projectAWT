@@ -6,6 +6,8 @@
 
       body{
           overflow: scroll;
+           font: 20px Montserrat, sans-serif;
+
       }
 
      .jumbotron{
@@ -13,9 +15,6 @@
        background-image:url("{% static 'home.jpg' %}");
        background-size:cover;
       background-repeat: no-repeat;
-     }
-      p , h1{
-       color: white;
      }
 
 
@@ -52,11 +51,24 @@
    i:hover{ -webkit-transform: scale(1.2); }
 
 
+
+
    .modal .container{
      padding:30px;
    }
 
+   .bg-3 {
+      background-color: #ffffff;
+      color: #555555;
+  }
 
+
+  .container-fluid {
+      padding-top: 20px;
+      padding-bottom: 70px;
+  }
+
+  img:hover{ -webkit-transform: scale(1.2); }
 
 
   </style>
@@ -107,9 +119,8 @@
   <div class="jumbotron"><center>
     <h1>Feedback Portal</h1>
     <p>We are the bridgers between you and your torch-bearers....</p></center>
-  </div>
-  <div class="login_option">
-        <center>  <button class="login" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button></center>
+    <div class="login_option" style="background-color:transparent;">
+        <center>  <button class="login" onclick="document.getElementById('id01').style.display='block'" style="position:relative;margin-top:250px;width:auto;">Login</button></center>
       <div id="id01" class="modal">
        <form class="modal-content animate" action="/login/" method="post">
            {%  csrf_token %}
@@ -134,6 +145,25 @@
            <span class="psw">Forgot <a href="#">password?</a></span>
          </div>
        </form>
+      </div>
+  </div>
+  </div>
+
+   <div class="container-fluid bg-3 text-center">
+      <h1>What we do?</h1><br>
+      <div class="row">
+        <div class="col-sm-4">
+          <p>You can give your feedback and suggestions to your faculty without using any paper, sitting right on your couch. </p>
+          <img src="{% static 'f1.png' %}" alt="Image"  style="width:300px;height:300px;object-fit:cover;padding:10px;" >
+        </div>
+        <div class="col-sm-4">
+          <p>Experience something amazing with us, we offer you the best user experience for giving your feedbacks</p>
+          <img src="{% static 'f4.png' %}" alt="Image"  style="width:300px;height:300px;object-fit:cover;padding:10px;">
+        </div>
+        <div class="col-sm-4">
+          <p>You can give your feedback and suggestions to your faculty without using any paper, sitting right on your couch.</p>
+          <img src="{% static 'f5.png' %}" alt="Image" style="width:300px;height:300px;object-fit:cover;padding:10px;" >
+        </div>
       </div>
   </div>
 </div>
