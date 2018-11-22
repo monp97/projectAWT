@@ -51,10 +51,9 @@
    i:hover{ -webkit-transform: scale(1.2); }
 
 
-
-
    .modal .container{
      padding:30px;
+
    }
 
    .bg-3 {
@@ -121,21 +120,18 @@
     <p>We are the bridgers between you and your torch-bearers....</p></center>
     <div class="login_option" style="background-color:transparent;">
         <center>  <button class="login" onclick="document.getElementById('id01').style.display='block'" style="position:relative;margin-top:250px;width:auto;">Login</button></center>
-      <div id="id01" class="modal">
+      <div id="id01" class="modal" style="padding:50px;">
        <form class="modal-content animate" action="/login/" method="post">
            {%  csrf_token %}
          <div class="imgcontainer">
               <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
             <img src='{% static 'avatar.png' %}' alt="Avatar" class="avatar" style="width:100px;">
             </div>
-         <div class="container">
-
-           <label for="uname"><b>Username</b></label>
-           <span style="color:black;">  {{ form.username }}</span>
-
-
+         <div class="container" style="color:black;">
+           <label for="uname">Username</label>
+           <span>  {{ form.username }}</span>
            <label for="psw"><b>Password</b></label>
-           <span style="color:black;">  {{ form.password }}</span>
+           <span>  {{ form.password }}</span>
 
            <button class="btn btn-primary" type="submit" >Login</button>
            <label>

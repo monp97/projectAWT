@@ -4,7 +4,6 @@
 Showing Paper Offerings for user as in Semester {{ semester }}
 <br/><br/>
 
-
 {% block content %}
 <div class=""row">
 {%  for paper_offering in paper_offerings %}
@@ -32,6 +31,7 @@ Showing Paper Offerings for user as in Semester {{ semester }}
                      <h1><b>{{ paper_offering.paper.title }}</b></h1>
                   <p>Taught by {{ paper_offering.faculty.first_name }}</p>
                   <b><p style="text-transform: uppercase">{{ paper_offering.paper.kind }}</p></b>
+                    <img   src="{% static 'tick.png' %}" alt="Avatar" style="position:relative;padding:10px;width:70px;height:70px;">
                 </div>
             </div>
           </div>
