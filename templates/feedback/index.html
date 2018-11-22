@@ -6,6 +6,9 @@ Showing Paper Offerings for user as in Semester {{ semester }}
 
 {% block content %}
 <div class=""row">
+{% if request.user.submitted_all %}
+<div class="alert alert-success">You have submitted feedback for all papers.</div>
+{% endif %}
 {%  for paper_offering in paper_offerings %}
     {% has_feedback paper_offering request.user as has_feedback_val %}
     <div class="col-sm-4">
@@ -24,16 +27,17 @@ Showing Paper Offerings for user as in Semester {{ semester }}
                     <img  class="wrong" src="{% static 'pencil.png' %}" alt="Avatar" style="width:100px;height:100px;">
                     <div class="row" style="padding:20px;font-size:1.5em"><div class="label label-success">Submit Feedback</div></div>
                 {% endif %}
-
             </div>
-            <div class="flip-card-back">
-                <div class="box">
-                     <h1><b>{{ paper_offering.paper.title }}</b></h1>
-                  <p>Taught by {{ paper_offering.faculty.first_name }}</p>
-                  <b><p style="text-transform: uppercase">{{ paper_offering.paper.kind }}</p></b>
-                    <img   src="{% static 'tick.png' %}" alt="Avatar" style="position:relative;padding:10px;width:70px;height:70px;">
+                <div class="flip-card-back">
+                    <div class="box">
+                         <h1><b>{{ paper_offering.paper.title }}</b></h1>
+                      <p>Taught by {{ paper_offering.faculty.first_name }}</p>
+                      <b><p style="text-transform: uppercase">{{ paper_offering.paper.kind }}</p></b>
+                    {% if has_feedback_val %}
+                        <img   src="{% static 'tick.png' %}" alt="Avatar" style="position:relative;padding:10px;width:70px;height:70px;">
+                    {% endif %}
+                    </div>
                 </div>
-            </div>
           </div>
         </div>
         </a>
